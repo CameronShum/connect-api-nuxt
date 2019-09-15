@@ -5,7 +5,7 @@
         Connect to Firebase
       </p>
     </div>
-    {{ user }}
+    {{ uid }}
   </div>
 </template>
 
@@ -14,12 +14,9 @@ import firebase from 'firebase/app'
 import { auth } from '~/plugins/fireDatabase'
 
 export default {
-  // async asyncData ({ googleSignIn }) {
-  // const user = await googleSignIn
-  // return { user }
-  // },
-
-  data: () => ({ user: firebase.auth().currentUser.uid }),
+  data: () => ({
+    uid: ''
+  }),
 
   methods: {
     // async getWifi () {
@@ -29,14 +26,14 @@ export default {
     async googleSignIn () {
       this.provider = new firebase.auth.GoogleAuthProvider()
       await firebase.auth()
-      await auth.signInWithPopup(this.provider).then(function (result) {
-        // The signed-in user info.
-        this.user = result.user.uid
+      const userId = await auth.signInWithPopup(this.provider).then(function (result) {
+        return (result.user.uid)
       }).catch(function (error) {
         const errorMessage = error.message
         const credential = error.credential
         return ({ errorMessage, credential })
       })
+      this.uid = userId // set the uid with data from pop up
     }
 
   }
