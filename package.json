@@ -20,6 +20,9 @@
     }
   },
   "dependencies": {
+    "@nuxtjs/dotenv": "^1.4.1",
+    "dotenv": "^8.1.0",
+    "firebase": "^6.6.1",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {

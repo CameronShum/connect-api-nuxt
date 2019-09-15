@@ -2,27 +2,15 @@
   <div class="container">
     <div>
       <logo />
-      <h1 class="title">
+      <h1 class="title" @click="getWifi">
         connect-api-nuxt
       </h1>
       <h2 class="subtitle">
         My finest Nuxt.js project
       </h2>
       <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
+        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
   </div>
@@ -30,10 +18,16 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import fireDatabase from '~/plugins/fireDatabase'
 
 export default {
   components: {
     Logo
+  },
+  methods: {
+    async getWifi () {
+      console.log(await fireDatabase.getWifi('ZJD1Q307WSf5y48gw1FCTT5oGkv2'))
+    }
   }
 }
 </script>
@@ -49,8 +43,8 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;

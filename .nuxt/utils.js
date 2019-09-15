@@ -138,7 +138,7 @@ export async function setContext(app, context) {
       payload: context.payload,
       error: context.error,
       base: '/',
-      env: {}
+      env: {"FIREBASE_API_KEY":"AIzaSyC6BBju1nyB-sYq-2C6NztLKUBn_c3HZGk","FIREBASE_PROJECT_ID":"hackthenorth-8bf15","FIREBASE_SENDER_ID":"284532114174","FIREBASE_APP_ID":"1:284532114174:web:c1cb20934ff38e3a21dbaf"}
     }
     // Only set once
     if (context.req) {
