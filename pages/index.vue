@@ -1,33 +1,44 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title" @click="getWifi">
-        connect-api-nuxt
-      </h1>
-      <h2 class="subtitle">
-        My finest Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-      </div>
+    <div class="button" @click="googleSignIn">
+      <p class="title">
+        Connect to Firebase
+      </p>
     </div>
+    {{ user }}
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import fireDatabase from '~/plugins/fireDatabase'
+import firebase from 'firebase/app'
+import { auth } from '~/plugins/fireDatabase'
 
 export default {
-  components: {
-    Logo
-  },
+  // async asyncData ({ googleSignIn }) {
+  // const user = await googleSignIn
+  // return { user }
+  // },
+
+  data: () => ({ user: firebase.auth().currentUser.uid }),
+
   methods: {
-    async getWifi () {
-      console.log(await fireDatabase.getWifi('ZJD1Q307WSf5y48gw1FCTT5oGkv2'))
+    // async getWifi () {
+    //   console.log(await fireDatabase.getWifi('ZJD1Q307WSf5y48gw1FCTT5oGkv2'))
+    // },
+
+    async googleSignIn () {
+      this.provider = new firebase.auth.GoogleAuthProvider()
+      await firebase.auth()
+      await auth.signInWithPopup(this.provider).then(function (result) {
+        // The signed-in user info.
+        this.user = result.user.uid
+      }).catch(function (error) {
+        const errorMessage = error.message
+        const credential = error.credential
+        return ({ errorMessage, credential })
+      })
     }
+
   }
 }
 </script>
@@ -40,6 +51,9 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -47,8 +61,8 @@ export default {
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: block;
   font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
+  font-size: 50px;
+  color: white;
   letter-spacing: 1px;
 }
 
@@ -60,7 +74,21 @@ export default {
   padding-bottom: 15px;
 }
 
-.links {
-  padding-top: 15px;
+.button {
+  width: 500px;
+  height: 150px;
+  background-color: tomato;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.button:hover{
+  width: 100%;
+  height: 150px;
+  /*opacity: 0.4; */
 }
 </style>

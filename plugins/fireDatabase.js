@@ -4,7 +4,6 @@ import 'firebase/auth'
 import 'firebase/storage'
 
 if (!firebase.apps.length) {
-  console.log(process.env.apiKey)
   const firebaseConfig = {
     apiKey: process.env.FIREBASE_API_KEY,
     authDomain: `${process.env.FIREBASE_PROJECT_ID}.firebaseapp.com`,
@@ -14,7 +13,6 @@ if (!firebase.apps.length) {
     messagingSenderId: process.env.FIREBASE_SENDER_ID,
     appID: process.env.FIREBASE_APP_ID
   }
-  console.log(firebaseConfig, 'hit')
   firebase.initializeApp(firebaseConfig)
 };
 
